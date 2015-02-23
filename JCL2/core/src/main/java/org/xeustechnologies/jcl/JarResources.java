@@ -72,7 +72,8 @@ public class JarResources {
      */
     public URL getResourceURL(String name) {
         if (baseUrl == null) {
-            throw new JclException( "non-URL accessible resource" );
+        	return null;
+            //throw new JclException( "non-URL accessible resource" );
         }
         if (jarEntryContents.get( name ) != null) {
             try {

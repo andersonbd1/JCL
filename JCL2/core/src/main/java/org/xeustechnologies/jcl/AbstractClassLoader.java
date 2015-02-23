@@ -120,8 +120,18 @@ public abstract class AbstractClassLoader extends ClassLoader {
 			for (ProxyClassLoader l : loaders) {
 				if (l.isEnabled()) {
 					clazz = l.loadClass(className, resolveIt);
-					if (clazz != null)
-						break;
+
+					if (clazz != null) {
+						if (clazz.isEnum() && className.startsWith("biz.neustar")) {
+							if (l instanceof JarClassLoader.LocalLoader || l instanceof AbstractClassLoader.CurrentLoader) {
+								continue;
+							} else {
+								break;
+							}
+						} else {
+							break;
+						}
+					}
 				}
 			}
 		}
